@@ -32,20 +32,39 @@ public class Knight {
         // first check: if input parameters are valid
         if (Math.min(row, MIN_NUM) >=MIN_NUM && Math.max(row, MAX_NUM)<=MAX_NUM &&
                 Math.min(col, MIN_NUM) >=MIN_NUM && Math.max(col, MAX_NUM)<=MAX_NUM){
-        //if (row >= MIN_NUM && row <=MAX_NUM && col >= MIN_NUM && col <= MAX_NUM)
+        //since we can look at a chessboard as a mirror, I separated some repetitive actions
             if(row + BIG_STEP <= MAX_NUM){
-                if (col + SMALL_STEP <=MAX_NUM){
-                    System.out.println("");
+                if (col + SMALL_STEP <= MAX_NUM){
+                    System.out.println((row + BIG_STEP) + " " + (col + SMALL_STEP));
                 }
-            }
-
-
-
-            // check the option of using flags
-            // Check if movement is not out of range
-                // if movement is not out of range print all options
-            // if movement is out of range print possible options
-            System.out.println(row + " " + col);
+                if (col - SMALL_STEP >= MIN_NUM){
+                    System.out.println((row + BIG_STEP) + " " + (col - SMALL_STEP));
+                }
+            } //End of if statement
+            if(row - BIG_STEP >= MIN_NUM){
+                if (col + SMALL_STEP <= MAX_NUM){
+                    System.out.println((row - BIG_STEP) + " " + (col + SMALL_STEP));
+                }
+                if (col - SMALL_STEP >= MIN_NUM){
+                    System.out.println((row - BIG_STEP) + " " + (col - SMALL_STEP));
+                }
+            } //end of if statement
+            if(row - SMALL_STEP >= MIN_NUM){
+                if (col + BIG_STEP <= MAX_NUM){
+                    System.out.println((row - SMALL_STEP) + " " + (col + BIG_STEP));
+                }
+                if (col - SMALL_STEP >= MIN_NUM){
+                    System.out.println((row - SMALL_STEP) + " " + (col - BIG_STEP));
+                }
+            } //end of if statement
+            if(row + SMALL_STEP <= MAX_NUM){
+                if (col + BIG_STEP <= MAX_NUM){
+                    System.out.println((row + SMALL_STEP) + " " + (col + BIG_STEP));
+                }
+                if (col - SMALL_STEP >= MIN_NUM){
+                    System.out.println((row + SMALL_STEP) + " " + (col - BIG_STEP));
+                }
+            } //end of if statement
         } //end of if statement
         else {
             System.out.println("input is illegal");
