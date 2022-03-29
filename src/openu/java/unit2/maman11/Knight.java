@@ -9,7 +9,8 @@ in this question we are required to:
 2. output - print all locations over the board to which the knight can move
 testing methode - TDD (class name: KnightTest)
 @author: Edith Kamkhaji
-@version: v0.0.1
+@version: v0.0.3 @tests executed manually
+
  */
 
 
@@ -23,7 +24,8 @@ public class Knight {
 
         Scanner scan = new Scanner (System.in);
         System.out.println ("This program reads two integers which " +
-                "represent the knight's location on the chess board: "); //presnet to the user what the method does
+                "represent the knight's location on the chess board: "); //present to the user what the method does
+
         System.out.println ("Please enter the number of row");
         int row = scan.nextInt(); // get row input from the user
         System.out.println ("Please enter the number of column");
@@ -64,8 +66,8 @@ public class Knight {
                 if (col - SMALL_STEP >= MIN_NUM){
                     System.out.println((row + SMALL_STEP) + " " + (col - BIG_STEP));
                 }
-            } //end of if statement
-        } //end of if statement
+            } //end of inner if statement
+        } //end of first if statement
         else {
             System.out.println("input is illegal");
         } //end of else
