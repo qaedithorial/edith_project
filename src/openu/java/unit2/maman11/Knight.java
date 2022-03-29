@@ -10,6 +10,7 @@ in this question we are required to:
 testing methode - TDD (class name: KnightTest)
 @author: Edith Kamkhaji
 @version: v0.0.3 @tests executed manually
+
  */
 
 
@@ -24,6 +25,7 @@ public class Knight {
         Scanner scan = new Scanner (System.in);
         System.out.println ("This program reads two integers which " +
                 "represent the knight's location on the chess board: "); //present to the user what the method does
+
         System.out.println ("Please enter the number of row");
         int row = scan.nextInt(); // get row input from the user
         System.out.println ("Please enter the number of column");
