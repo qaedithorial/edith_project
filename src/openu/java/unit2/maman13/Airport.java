@@ -1,5 +1,9 @@
 package openu.java.unit2.maman13;
-
+/**
+ * This class represent an Airports departors and arrivals flights data.
+ * @author Edith Kamkhaji
+ * @version v.0.0.5
+ */
 
 import java.util.Arrays;
 import java.util.Set;
@@ -12,13 +16,21 @@ public class Airport {
 
     private final int MAX_FLIGHTS = 200;
 
-    // constractor @param cityName  String
+    // constractors
+
+    /**
+     *  Initialize an airport object
+     * @param city - name of the city in which the airport is located
+     */
     public Airport(String city) {
         _city = city;
         _flightsSchedule = new Flight[MAX_FLIGHTS];
         _noOfFlights = 0;
     }
 
+    /**
+     * a default constractor
+     */
     public Airport() {
         _city = "Tel-Aviv";
         _flightsSchedule = new Flight[MAX_FLIGHTS];
@@ -26,14 +38,27 @@ public class Airport {
     }
 
     // getters
+
+    /**
+     * Return the number of flights
+     * @return number of flights in the airport board in array
+     */
     public int getNoOfFlights() {
         return _noOfFlights;
     }
 
+    /**
+     * Return the number of flights
+     * @return ame of the city in which the airport is located
+     */
     public String getCity() {
         return _city;
     }
 
+    /**
+     * Return an actual flights array
+     * @return actual flights arry
+     */
     public Flight[] getFlight() {
         Flight[] actFlightArray = new Flight[_noOfFlights];
         for (int i = 0; i < _noOfFlights; i++) {
@@ -42,10 +67,11 @@ public class Airport {
         return actFlightArray;
     }
 
-    // @param flight String
-    // @return boolean
-    // this function will add a flight to the flightSchedule and will return true if it was added
-    // or false if it wasn't
+    /**
+     * this function will add a flight to the flightSchedule
+     * @param f - flight data
+     * @return false - if flight wasn't added, true - if flight was added
+     */
     public boolean addFlight(Flight f) {
         if (_noOfFlights == MAX_FLIGHTS) //first we will check if there is a place
         {
@@ -56,12 +82,14 @@ public class Airport {
         return true;
     }
 
-    // @param flight string
-    // @return true - deletion was done
-    // @return false - deletion wasn't done
-    // need to add a function to split spaces - move last at palce of removed flight
+    /**
+     * remove flight from board
+     * @param f flight data
+     * @return true - deletion was done, false - deletion wasn't done
+     */
     public boolean removeFlight(Flight f) {
         for (int i = 0; i < _noOfFlights; i++) {
+            //move last at palce of removed flight
             if (_flightsSchedule[i].equals(f)) {
                 _flightsSchedule[i] = _flightsSchedule[_noOfFlights - 1];
                 _flightsSchedule[_noOfFlights - 1] = null;
@@ -74,15 +102,18 @@ public class Airport {
 
     // @param place - String
     // @return first flight from place if there is no flight from place @return null
+
+    /**
+     *
+     * @param place
+     * @return first flight from place if there is no flight from place return null
+     */
     public Time1 firstFlightFromOrigin(String place) {
         // check if there are flights
         if (_noOfFlights == 0) {
             return null; // no flights
         }
         int i = 0;
-//        //check that there sit a flight from origin
-//        for (; i < _noOfFlights && !_flightsSchedule[i].getOrigin().equals(_city); i++) ;
-//        if (i == _noOfFlights) return null; // in this case no flight from origin
         Flight first = _flightsSchedule[i];
         for (i++; i < _noOfFlights; i++) {
             if (_flightsSchedule[i].getOrigin().equals(place)) {
@@ -97,7 +128,10 @@ public class Airport {
         return first.getDeparture();
     }
 
-    // @return how many full filghts in this day
+    /**
+     * chec how many full flights there are in this day
+     * @return the number of full flight in current day
+     */
     public int howManyFullFlights(){
         int flightCounter = 0;
         for(int i = 0; i < _noOfFlights; i++){
@@ -107,12 +141,17 @@ public class Airport {
         }
         return flightCounter;
     }
-// TODO - NEED TO WRITE FUNC
-    //@param place String
-    //@return int - (see number 8 in the maman)
-//    public int howManyFlightsBetween(String city){
-//
-//    }
+    //@param place String -
+    //@return int - a sum of flight that depart and arrive from and to this place (see number 8 in the maman)
+    public int howManyFlightsBetween(String place){
+        int flightBetweenCount = 0;
+        for(int i = 0; i <_noOfFlights; i++){
+            if(_flightsSchedule[i].getDestination().equals(place) || _flightsSchedule[i].getOrigin().equals(place)){
+                flightBetweenCount++;
+            }
+        }
+        return flightBetweenCount;
+    }
     //9
     // @return _city String the most popolar city
     public String mostPopularDestination() {

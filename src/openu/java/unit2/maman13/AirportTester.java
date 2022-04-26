@@ -382,17 +382,17 @@ public class AirportTester {
 
     }
 
-//    @Test
-//    @DisplayName("howManyFlightsBetween")
-//    public void howManyFlightsBetweenMethod(){
-//
-//        assertEquals(2,flightBoardMilan.howManyFlightsBetween("Madrid"));
-//        assertEquals(2,flightBoardTelAviv.howManyFlightsBetween("Amsterdam"));
-//        assertEquals(1,flightBoardTokyo.howManyFlightsBetween("Paris"));
-//        assertEquals(2,flightBoardTokyo.howManyFlightsBetween("Berlin"));
-//
-//
-//    }
+    @Test
+    @DisplayName("howManyFlightsBetween")
+    public void howManyFlightsBetweenMethod(){
+
+        assertEquals(2,flightBoardMilan.howManyFlightsBetween("Madrid"));
+        assertEquals(2,flightBoardTelAviv.howManyFlightsBetween("Amsterdam"));
+        assertEquals(1,flightBoardTokyo.howManyFlightsBetween("Paris"));
+        assertEquals(2,flightBoardTokyo.howManyFlightsBetween("Berlin"));
+
+
+    }
 
     @Test
     @DisplayName("mostPopularDestination")
