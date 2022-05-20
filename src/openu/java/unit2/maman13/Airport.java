@@ -5,9 +5,6 @@ package openu.java.unit2.maman13;
  * @version v.0.0.5
  */
 
-import java.util.Arrays;
-import java.util.Set;
-
 public class Airport {
     // instance variables
     private int _noOfFlights;
@@ -100,9 +97,6 @@ public class Airport {
         return false; // f not in _flightsSchedule
     }
 
-    // @param place - String
-    // @return first flight from place if there is no flight from place @return null
-
     /**
      *
      * @param place
@@ -116,9 +110,11 @@ public class Airport {
         int i = 0;
         Flight first = _flightsSchedule[i];
         for (i++; i < _noOfFlights; i++) {
-            if (_flightsSchedule[i].getOrigin().equals(place)) {
-                if (_flightsSchedule[i].getDeparture().before(first.getDeparture())) {
-                    first = _flightsSchedule[i];
+            if (_flightsSchedule[i].getOrigin().equals(_city) || _flightsSchedule[i].getDestination().equals(_city)){
+                if (_flightsSchedule[i].getOrigin().equals(place)) {
+                    if (_flightsSchedule[i].getDeparture().before(first.getDeparture())) {
+                        first = _flightsSchedule[i];
+                    }
                 }
             }
         }
@@ -135,10 +131,11 @@ public class Airport {
     public int howManyFullFlights(){
         int flightCounter = 0;
         for(int i = 0; i < _noOfFlights; i++){
-            if(_flightsSchedule[i] != null && _flightsSchedule[i].getIsFull()){
-                flightCounter++;
+            if(_flightsSchedule[i].getDestination().equals(_city) || _flightsSchedule[i].getOrigin().equals(_city))
+                if(_flightsSchedule[i] != null && _flightsSchedule[i].getIsFull()){
+                    flightCounter++;
+                }
             }
-        }
         return flightCounter;
     }
     //@param place String -
@@ -146,25 +143,33 @@ public class Airport {
     public int howManyFlightsBetween(String place){
         int flightBetweenCount = 0;
         for(int i = 0; i <_noOfFlights; i++){
-            if(_flightsSchedule[i].getDestination().equals(place) || _flightsSchedule[i].getOrigin().equals(place)){
-                flightBetweenCount++;
+            if(_flightsSchedule[i].getDestination().equals(_city) || _flightsSchedule[i].getOrigin().equals(_city))
+                if(_flightsSchedule[i].getDestination().equals(place) || _flightsSchedule[i].getOrigin().equals(place)){
+                    flightBetweenCount++;
+                }
             }
-        }
         return flightBetweenCount;
     }
-    //9
-    // @return _city String the most popolar city
+
+    /**
+     * method will return the most popular city
+     * @return name of the most popular city destination (String)
+     */
     public String mostPopularDestination() {
         String mostPopolarDest = "";
+        String currentDest = "";
         int countPopular = 0;
+        int currentDestCount = 1;
         for (int i = 0; i < _noOfFlights; i++) {
-            String currentDest = _flightsSchedule[i].getDestination();
-            int currentDestCount = 1;
-            for (int j = 0; j < _noOfFlights; j++) {
-                if (_flightsSchedule[j].getDestination().equals(currentDest)) {
-                    currentDestCount++;
-                }
-            }// end of internal for
+            if(_flightsSchedule[i].getOrigin().equals(_city) || _flightsSchedule[i].getDestination().equals(_city)){
+                currentDest = _flightsSchedule[i].getDestination();
+                for (int j = 0; j < _noOfFlights; j++) {
+                    if (_flightsSchedule[j].getDestination().equals(currentDest)) {
+                        currentDestCount++;
+                    }
+                }// end of internal for
+            }
+
             if (currentDestCount > countPopular) {
                 countPopular = currentDestCount;
                 mostPopolarDest = currentDest;
@@ -173,61 +178,65 @@ public class Airport {
         return mostPopolarDest;
     }
 
-    //10
-    // @return Fligh which its' price is the higher (the first one)
-    // @return null if no flights
+    /**
+     * will return the most expensive ticket
+     * @return Fligh which its' price is the higher (the first one) or null if there are no flights
+     */
     public Flight mostExpensiveTicket() {
         if (_noOfFlights == 0) {
             return null; //no flights in schedule
         }
         Flight expensiveTicket = _flightsSchedule[0];
         for (int i = 0; i < _noOfFlights; i++) {
-            if (_flightsSchedule[i].getPrice() > expensiveTicket.getPrice()) {
+            if(_flightsSchedule[i].getOrigin().equals(_city) || _flightsSchedule[i].getDestination().equals(_city))
+                if (_flightsSchedule[i].getPrice() > expensiveTicket.getPrice()) {
                 expensiveTicket = _flightsSchedule[i];
             }
         }
         return expensiveTicket;
     }
 
-    //11
-    // return flight (longest flight)
-    // return null if no flights
+    /**
+     * will return the longest flight
+     * @return flight (longest flight), return null if there are no flights
+     */
     public Flight longestFlight() {
         if (_noOfFlights == 0) {
             return null; //no flights in schedule
         }
         Flight longest = _flightsSchedule[0];
         for (int i = 1; i < _noOfFlights; i++) {
-            if (_flightsSchedule[i].getFlightDuration() < longest.getFlightDuration()) {
-                longest = _flightsSchedule[i];
-            } //end of if statment
-        } //end of for loop
+            if(_flightsSchedule[i].getOrigin().equals(_city) || _flightsSchedule[i].getDestination().equals(_city))
+                if (_flightsSchedule[i].getFlightDuration() > longest.getFlightDuration()) {
+                    longest = _flightsSchedule[i];
+                } //end of if statment
+            } //end of for loop
         return longest;
     }
 
-    //12
-    // @return String of all flights in the flights array, each flight in new line
-    // flights output should have a title
-    //if there it no flights in the flights list @return null
-
-
+    /**
+     *
+     * @return String of all flights in the flights array, each flight in new line, if there are no flights in the flights list return null
+     */
     public String toString() {
-        return "Airport flights: " +
-                "number of flights are " + _noOfFlights +
-                ", airport city name is " + _city  +
-                ", schedule flights are: \n" + flightsScheduleToString();
+        return "The flights for airport " + _city  +
+                " today are:" + flightsScheduleToString();
     }
 
+    /**
+     *
+     * @return String of all flights in the flights array, each flight in new line, if there are no flights in the flights list return null
+     */
     private String flightsScheduleToString() {
         if (_flightsSchedule.length == 0) {
             return null;
         }
         String string = new String();
         for (int i = 0; i < _noOfFlights; ++i) {
-            if (i > 0) {
+            if (i > 0 && _flightsSchedule[i].getOrigin().equals(_city) || _flightsSchedule[i].getDestination().equals(_city)) {
                 string += '\n';
+                string += _flightsSchedule[i].toString();
             }
-            string += _flightsSchedule[i].toString();
         }
         return string;
     }
