@@ -73,6 +73,10 @@ public class Set {
         return false;
     }
 
+
+    // time complexity - O(n)
+    // space complexity - O(1)
+    //TODO ADD API
     public int numOfElements()
     {
         int count = 0;
@@ -86,7 +90,9 @@ public class Set {
 
         return count;
     }
-
+    
+    // time complexity - O(n)
+    // space complexity - O(1)
     public boolean subSet(Set other)
     {
         IntNode curr = _head;
@@ -111,7 +117,9 @@ public class Set {
         return curr2 == null;
 
     }
-
+    
+    // time complexity - O(n)
+    // space complexity - O(1)
     public void addToSet(int x)
     {
         if (x % 2 == 0 || x < 0)
@@ -147,7 +155,9 @@ public class Set {
 
         }
     }
-
+    
+    // time complexity: O(n)
+    // space complexity: O(1)
     public void removeFromSet(int x)
     {
         if (_head == null)
@@ -155,20 +165,27 @@ public class Set {
             return;
         }
         IntNode curr = _head;
-        while (curr.getNext() != null)
-        {
-            if (curr.getNext().getValue() == x)
-            {
-                IntNode newNext = curr.getNext().getNext();
-                curr.getNext().setNext(null);
-                curr.setNext(newNext);
-                return;
-            }
-            prev = curr;
-            curr = curr.getNext();
-        }
-    }
+		    IntNode prev = null;
+		    while (curr != null)
+		    {
+			    if (curr.getValue() == x)
+			    {
+				    if (prev == null)
+				  {
+					  _head = _head.getNext();
+					  return;
+				  }
+				  prev.setNext(curr.getNext());
+				  return;
+			  }
+      }
+      prev = curr;
+      curr = curr.getNext();
+		}
+	}
 
+    // time complexity: O(n)
+    // space complexity: O(n)
     public String toString()
     {
         String str = "{";
@@ -182,7 +199,9 @@ public class Set {
 
         return str + "}";
     }
-
+    
+    // time complexity: O(n)
+    // space complexity: O(n)
     public Set intersection(Set other)
     {
         Set set = new Set();
@@ -212,7 +231,9 @@ public class Set {
         return set;
 
     }
-
+    
+    // time complexity: O(n)
+    // space complexity: O(n)
     public Set union(Set other)
     {
         Set unionSet = new Set();
@@ -310,7 +331,9 @@ public class Set {
 
         return unionSet;
     }
-
+    
+    // time complexity: O(n)
+    // space complexity: O(n)
     public Set difference(Set other)
     {
         Set diffSet = new Set();
